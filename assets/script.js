@@ -1,62 +1,69 @@
-var apiKey = "540da406fc27f9b6e16fd51ec5cded3b";
-var weatherApiUrl = "https://api.openweathermap.org/data/2.5/weather?" +"q="+ cityName + "&appid=" + apiKey;
-var cityName = "Waterford"
-var currentTemp =""
-var windSpeed = ""
-var currentHumidity =""
+// Get the necessary elements from the HTML
+const searchButton = document.getElementById('search-btn');
+const cityInput = document.getElementById('city-input');
+const cityName = document.getElementById('city-name');
+const currentWeather = document.getElementById('current-weather');
+const forecast = document.getElementById('forecast');
 
-fetch("https://api.openweathermap.org/data/2.5/weather?q=+cityName+'&appid=540da406fc27f9b6e16fd51ec5cded3b")
-.then(response  => response.json())
-.then(data =>{
-  for (let i=0; i<5;i++) {
-    document.getElementById=("day" +(i+1) +"temp").innerHTML ="temp" + Number(data.list[i].main.temp -278.11).toFixed(1)+"";
+// Define the API key for OpenWeatherMap
+const apiKey = '540da406fc27f9b6e16fd51ec5cded3b';
+
+// Add an event listener to the search button
+searchButton.addEventListener('click', () => {
+  // Get the city name from the input field
+  const city = cityInput.value;
+
+  // Check if the city name is empty
+  if (city.trim().length === 0) {
+    alert('Please enter a city name');
+    return;
   }
-    for (let i=0; i<5;i++) {
-      document.getElementById=("day" +(i+1) +"humidity").innerHTML ="humidity" + Number(data.list[i].main.humidity -71).toFixed(1)+"";
-    }
-      for (let i=0; i<5;i++) {
-        document.getElementById=("day" +(i+1) +"wind").innerHTML ="wind" + Number(data.list[i].wind.speed -4.47).toFixed(1)+"";
-    }
-})
 
+  // Call the OpenWeatherMap API to get the current weather for the given city
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+    .then(response => response.json())
+    .then(data => {
+      // Update the city name and current weather HTML elements with the API data
+      cityName.textContent = data.name;
+      currentWeather.innerHTML = `
+        <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}.png" alt="${data.weather[0].description}">
+        <p>${data.weather[0].description}</p>
+        <p>Temperature: ${data.main.temp}&deg;F</p>
+        <p>Feels like: ${data.main.feels_like}&deg;F</p>
+        <p>Humidity: ${data.main.humidity}%</p>
+        <p>Wind speed: ${data.wind.speed} m/s</p>
+      `;
 
-.catch(err => alert("Try Again"))
+      // Call the OpenWeatherMap API to get the 5-day forecast for the given city
+      return fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`);
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Clear the forecast HTML element
+      forecast.innerHTML = '';
 
-function defaultScreen() {
-  document.getElementById("cityInput").defaultValue ="Waterford";
-  GetInfo();
-}
-
-
-const d =new Date();
-const weekday =["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-
-function checkDay(day) {
-  if (day +d.getDay() > 6) {
-    return day +d.getDay()-7;
-    }
-    else{
-      return day +d.getDay();
-    }
-  
-}
-
-for (i=0;i<5;i++) {
-  document.getElementById("day"+(i+1)).innerHTML = weekday[checkDay(i)];
-  
-}
-
-$('#cityName').val("");
-function saveCity() {
-  cityName = $('#cityName').val();
-  $("#listCityName").append("<li onclick='weatherInfo(this)'>" + cityName + "</li>");
-  $('#cityName').val("");
-  weatherInfo(cityName);
-  cityFromLocal.push(cityName)
-  localStorage.setItem("city",JSON.stringify(cityFromLocal))
-}
-
-const saveLocalStorageState = () => {
-    localStorage.setItem("weatherAppPreferences",
-      JSON.stringify(state.preferences)
-    )};
+      // Loop through the forecast data and display the data for every day at 12:00 pm
+      for (let i = 0; i < data.list.length; i++) {
+        const forecastData = data.list[i];
+        const date = new Date(forecastData.dt_txt);
+        if (date.getHours() === 12) {
+          const forecastElement = document.createElement('div');
+          forecastElement.classList.add('forecast-item');
+          forecastElement.innerHTML = `
+            <p>${date.toLocaleDateString()}</p>
+            <img src="https://openweathermap.org/img/wn/${forecastData.weather[0].icon}.png" alt="${forecastData.weather[0].description}">
+            <p>${forecastData.weather[0].description}</p>
+            <p>Temperature: ${forecastData.main.temp}&deg;F</p>
+            <p>Feels like: ${forecastData.main.feels_like}&deg;F</p>
+            <p>Humidity: ${forecastData.main.humidity}%</p>
+            <p>Wind speed: ${forecastData.wind.speed} m/s</p>
+          `;
+          forecast.appendChild(forecastElement);
+        }
+      }
+    })
+    .catch(error => {
+      alert('An error occurred while fetching weather data');
+      console.error(error);
+    });
+});

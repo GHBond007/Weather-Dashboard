@@ -1,16 +1,110 @@
-h1 {
-    background-color: aqua;
-    font-size:small;
-    text-align: center;
-float:inline-start;
-}
 
-
-
-body {
-    font-family:'Times New Roman', Times, serif;
-    font-size: 16px;
-    
+.container {
+    display: flex;
+    flex-direction: row;
   }
   
+  .search-container {
+    flex-basis: 30%;
+    padding: 1rem;
+    background-color: #f7f7f7;
+    border-right: 1px solid #ccc;
+  }
   
+  .weather-container {
+    flex-basis: 70%;
+    padding: 1rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .search-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+  
+  label {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  input {
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 1rem;
+  }
+  
+  button {
+    font-size: 1.2rem;
+    background-color: #007bff;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #city-list {
+    margin-top: 2rem;
+  }
+  
+  #city-list h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  #city-list-ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #city-list-ul li {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    color: #007bff;
+  }
+  
+  #city-list-ul li:hover {
+    text-decoration: underline;
+  }
+  
+  #current-weather {
+    margin-bottom: 2rem;
+  }
+  
+  #current-weather h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  #forecast {
+    margin-bottom: 2rem;
+  }
+  
+  #forecast h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .forecast-item {
+    display: inline-block;
+    margin-right: 2rem;
+  }
+  
+  .forecast-item p {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .forecast-item img {
+    width: 50px;
+    height: 50px;
+  }
