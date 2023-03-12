@@ -16,7 +16,7 @@ body {
   background-color: antiquewhite;
   
 }
-.card{
+#card{
 position: relative;
     flex-direction: column;
     min-width: 0;
@@ -46,7 +46,8 @@ position: relative;
   border: 1px solid rgba(0,0,0,.125);
 }
 .weather-container {
-  width: 80%;
+  padding: 5px;
+  width: 90%;
     display: flow-root;
     flex-direction: row;
   }
