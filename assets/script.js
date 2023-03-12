@@ -8,6 +8,9 @@ const forecast = document.getElementById('forecast');
 // Define the API key for OpenWeatherMap
 const apiKey = '540da406fc27f9b6e16fd51ec5cded3b';
 
+const pastSearches = document.getElementById('pastSearches');
+
+
 // Add an event listener to the search button
 searchButton.addEventListener('click', () => {
   // Get the city name from the input field
@@ -20,7 +23,7 @@ searchButton.addEventListener('click', () => {
   }
 
   // Call the OpenWeatherMap API to get the current weather for the given city
-  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`)
     .then(response => response.json())
     .then(data => {
       // Update the city name and current weather HTML elements with the API data
@@ -31,11 +34,10 @@ searchButton.addEventListener('click', () => {
         <p>Temperature: ${data.main.temp}&deg;F</p>
         <p>Feels like: ${data.main.feels_like}&deg;F</p>
         <p>Humidity: ${data.main.humidity}%</p>
-        <p>Wind speed: ${data.wind.speed} m/s</p>
-      `;
+        <p>Wind speed: ${data.wind.speed} m/s</p>`;
 
       // Call the OpenWeatherMap API to get the 5-day forecast for the given city
-      return fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`);
+      return fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=imperial`);
     })
     .then(response => response.json())
     .then(data => {
@@ -56,14 +58,42 @@ searchButton.addEventListener('click', () => {
             <p>Temperature: ${forecastData.main.temp}&deg;F</p>
             <p>Feels like: ${forecastData.main.feels_like}&deg;F</p>
             <p>Humidity: ${forecastData.main.humidity}%</p>
-            <p>Wind speed: ${forecastData.wind.speed} m/s</p>
-          `;
+            <p>Wind speed: ${forecastData.wind.speed} m/s</p>`
+
           forecast.appendChild(forecastElement);
         }
       }
     })
+    
     .catch(error => {
       alert('An error occurred while fetching weather data');
       console.error(error);
     });
+    if (localStorage["pastSearches"]) {
+  pastSearches = JSON.parse(localStorage["pastSearches"]);
+  
+}
+if (pastSearches.indexOf(search) ==-1) {
+  pastSearches.unshift(search);
+  if (pastSearches.length > 5) {
+    pastSearches.pop();
+    
+  }
+  localStorage["pastSearches"] =JSON.stringify(pastSearches);
+}
+
+function drawPastSearches() {
+  if (pastSearches.length) {
+    var html = pastSearchesTemplate({search:pastSearches});
+    $("#pastSearches").html(html);
+    
+  }
+  
+}
+
+$(document).on("click", ".pastSearchLink" , function(e) {
+  e.preventDefault();
+  var search = $(this).text();
+  dosearch(search);
+});
 });

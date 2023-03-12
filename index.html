@@ -5,11 +5,22 @@
     <title>Weather Dashboard</title>
     <link rel="stylesheet" href="./assets/styles.css">
   </head>
-  <body>
+  <header class="jumbotron jumbotron-fluid custom-jumbotron text-light">
+      <div class="container-fluid text-center">
+      <h1 class="display-4">Weather Dashboard</h1>
+
+  </div>
+    </header>
+    <body>
     <div class="search-container">
       <input type="text" id="city-input" placeholder="Enter city name">
       <button id="search-btn">Search</button>
     </div>
+    <div class="card">
+      <div class="card-header">
+      <ul id="pastSearches" class="list-group list-group-flush list"></ul>
+    </div>
+  </div>
     <div class="weather-container">
       <h2 id="city-name"></h2>
       <div class="weather-info">
