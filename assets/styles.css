@@ -16,35 +16,7 @@ body {
   background-color: antiquewhite;
   
 }
-#card{
-position: relative;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: .25rem;
-  }
-  .list-group-flush .list-group-item {
-    float: left;
-    border-right-width: 0;
-    border-left-width: 0;
-    border-radius: 0;
-  }
 
-  ul {
-    list-style-type: disc;
-}
-
-
-.list-group-item {
-  position: relative;
-  display: block;
-  padding: .75rem 1.25rem;
-  background-color: #fff;
-  border: 1px solid rgba(0,0,0,.125);
-}
 .weather-container {
   padding: 5px;
   width: 90%;

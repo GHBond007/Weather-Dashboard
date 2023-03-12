@@ -3,8 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <title>Weather Dashboard</title>
+    <!--Here is the styling used-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <link rel="stylesheet" href="./assets/styles.css">
   </head>
+  <!--the header container with name of app-->
   <header class="jumbotron jumbotron-fluid custom-jumbotron text-light">
       <div class="container-fluid text-center">
       <h1 class="display-4">Weather Dashboard</h1>
@@ -12,21 +15,25 @@
   </div>
     </header>
     <body>
+<!--the div for the search-container-->
     <div class="search-container">
       <input type="text" id="city-input" placeholder="Enter city name">
       <button id="search-btn">Search</button>
     </div>
     <div class="card">
       <div class="card-header">
-      <ul id="pastSearches" class="list-group list-group-flush list"></ul>
     </div>
   </div>
+  <!-- here is the main weather container-->
     <div class="container-fluid weather-container">
       <div class="row">
+        <!--This calls the current city name -->
       <h2 id="city-name"></h2>
       <div class="weather-info">
+        <!--id of current weather and forecast-->
         <div id="current-weather"></div>
         <div id="forecast"></div>
+        <div id="city-list"></div>
       </div>
     </div>
     </div>
