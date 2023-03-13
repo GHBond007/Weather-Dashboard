@@ -1,13 +1,4 @@
-header {
-  padding: 10px;
-  text-align: center;
 
-  
-}
-h1 {
-  font-size:x-large;
-  color: black;
-}
 
 body {
   font-family:'Times New Roman', Times, serif;
@@ -15,6 +6,15 @@ body {
   color: blue;
   background-color: antiquewhite;
   
+}
+
+.jumbotron {
+  background-color: aqua;
+  padding: 5px;
+}
+h1 {
+  font-size:x-large;
+  color: black;
 }
 
 .weather-container {
